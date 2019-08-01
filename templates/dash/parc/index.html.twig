@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %} {% block title %}Administration des annonces{%
+endblock %} {% block body %}
+<div class="container">
+  <h1 class="my-5">Administration des annonces</h1>
+  <div class="row my-2">
+    <a href="{{ path('dash.parcs.create') }}" class="btn btn-secondary my-2"
+      >Créer une nouvelle annonce</a
+    >
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for parc in parcs %}
+      <tr>
+        <td>{{ parc.name }}</td>
+        <td>
+          <a
+            href="{{ path('dash.parcs.edit', { id: parc.id }) }}"
+            class="btn btn-success"
+            >Editer</a
+          >
+        </td>
+        <td>
+          <form
+            method="post"
+            action="{{ path('dash.parcs.delete', { id: parc.id }) }}"
+            style="display: inline-block"
+            onsubmit="return confirm('Souhaitez-vous vraiment supprimer cette annonce?')"
+          >
+            <input type="hidden" name="_method" value="DELETE" />
+            <button class="btn btn-danger">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

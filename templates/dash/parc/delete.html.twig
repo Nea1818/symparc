@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %} {% block title 'Supprimer une annonce' %} {%
+block body %}
+<div class="container mt-4">
+  <h1 class="my-5">Supprimer une annonce</h1>
+  {{
+    include("dash/parc/_form.html.twig", {
+      form: form,
+      button: "Supprimer l'annonce"
+    })
+  }}
+</div>
+{% endblock %}
