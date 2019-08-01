@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParcRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Parc
 {
@@ -35,6 +38,22 @@ class Parc
      * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * Gestion automatique de nos slugs
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     * @return void
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->name);
+        }
+    }
 
     public function getId(): ?int
     {

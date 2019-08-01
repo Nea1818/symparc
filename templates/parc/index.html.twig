@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %} {% block title %}Liste des espaces verts
+parisiens{% endblock %} {% block body %}
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-9">
+      <div class="row flex">
+        {% for parc in parcs %}
+        <div class="col-md-6">
+          <div class="card bg-light mb-3">
+            <a href="{{ path('parcs.show', { id: parc.id, slug: parc.slug }) }}"
+              ><img
+                src="#"
+                alt="Image"
+                style="height: 200px; width: 100%; display: block"
+            /></a>
+            <div class="card-body">
+              <h5 class="title">
+                <a
+                  href="{{
+                    path('parcs.show', { id: parc.id, slug: parc.slug })
+                  }}"
+                  >{{ parc.name }}</a
+                >
+              </h5>
+              ><br />
+              <small>Code Postal</small>
+              <p class="card-text">
+                {{ parc.introduction }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {#
+  <div class="pagination">
+    {{ knp_pagination_render(pros) }}
+  </div>
+  #}
+</div>
+{% endblock %}
