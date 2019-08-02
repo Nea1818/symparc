@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParcRepository")
@@ -20,6 +21,7 @@ class Parc
     private $id;
 
     /**
+     * @Assert\Length(min=5, max=255)
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -30,11 +32,13 @@ class Parc
     private $slug;
 
     /**
+     * @Assert\Length(min=5, max=255)
      * @ORM\Column(type="text")
      */
     private $introduction;
 
     /**
+     * @Assert\Length(min=5, max=255)
      * @ORM\Column(type="text")
      */
     private $description;

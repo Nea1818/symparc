@@ -19,6 +19,18 @@ class ParcRepository extends ServiceEntityRepository
         parent::__construct($registry, Parc::class);
     }
 
+    /**
+     * @return Parc[]
+     */
+
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('p')
+            ->setMaxResults(4)
+            ->getQuery();
+    }
+
+
     // /**
     //  * @return Parc[] Returns an array of Parc objects
     //  */

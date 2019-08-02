@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Parc;
 use App\Repository\ParcRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,9 +28,14 @@ class ParcController extends AbstractController
      * @Route("/parcs", name="parcs.index")
      * @return Response
      */
-    public function index(Request $request, ObjectManager $manager, ParcRepository $repository)
+    public function index(Request $request, ObjectManager $manager, ParcRepository $repository, PaginatorInterface $paginator)
     {
-        $parcs = $repository->findAll();
+        $parcs = $paginator->paginate(
+            $this->repository->findLatest(),
+            $request->query->getInt('page', 1),
+            4
+        );
+        $manager->flush();
         return $this->render('parc/index.html.twig', [
             'parcs' => $parcs,
         ]);
