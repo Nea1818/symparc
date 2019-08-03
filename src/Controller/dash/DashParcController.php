@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashParcController extends AbstractController
@@ -78,7 +80,7 @@ class DashParcController extends AbstractController
      *
      * @return Response
      */
-    public function edit(Parc $parc, Request $request, ObjectManager $manager)
+    public function edit(Parc $parc, Request $request, ObjectManager $manager, CacheManager $cacheManager, UploaderHelper $helper)
     {
         $form = $this->createForm(ParcType::class, $parc);
         $form->handleRequest($request);

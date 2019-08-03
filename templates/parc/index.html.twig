@@ -2,7 +2,7 @@
 parisiens{% endblock %} {% block body %}
 <div class="container">
   <div class="row mt-4">
-    <div class="col-md-9">
+    <div class="col">
       <div class="row flex">
         {% for parc in parcs %}
         <div class="col-md-6">
@@ -10,10 +10,17 @@ parisiens{% endblock %} {% block body %}
             <a href="{{ path('parcs.show', { id: parc.id, slug: parc.slug }) }}"
               >{% if parc.filename %}
               <img
-                src="{{ vich_uploader_asset(parc, 'imageFile') }}"
+                src="{{ vich_uploader_asset(parc, 'imageFile') | imagine_filter('thumb') }}"
                 alt="card-img-top"
-                style="height: 200px; width: 100%; display: block"
+                style="width: 100%; height: auto"
               />
+              {% else %}
+              <img
+                src="{{ '/images/parcs/empty.jpg' | imagine_filter('medium') }}"
+                alt="card-img-top"
+                style="width: 100%; height: auto"
+              />
+
               {% endif %}
             </a>
             <div class="card-body">

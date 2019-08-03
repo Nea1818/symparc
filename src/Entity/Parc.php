@@ -37,6 +37,7 @@ class Parc
 
     /**
      * @var File|null
+     * @Assert\Image(mimeTypes="image/jpeg")
      * @Vich\UploadableField(mapping="parc_image", fileNameProperty="filename")
      */
     private $imageFile;
@@ -163,6 +164,7 @@ class Parc
     /**
      *
      * @return null|File
+     *
      */
     public function getImageFile(): ?File
     {
