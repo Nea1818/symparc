@@ -76,7 +76,7 @@ class DashParcController extends AbstractController
     }
     
     /**
-     * @Route("/dash/{id}/", name="dash.parcs.edit", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST"))
+     * @Route("/dash/{id}", name="dash.parcs.edit", requirements={"slug": "[a-z0-9\-]*"}, methods="GET|POST"))
      *
      * @return Response
      */

@@ -2,11 +2,12 @@
 block body %}
 <div class="container mt-4">
   <h1 class="my-5">Supprimer une annonce</h1>
-  {{
-    include("dash/parc/_form.html.twig", {
-      form: form,
-      button: "Supprimer l'annonce"
-    })
-  }}
+  <div class="container">
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">
+      Enregistrer les modifications
+    </button>
+    {{ form_end(form) }}
+  </div>
 </div>
 {% endblock %}

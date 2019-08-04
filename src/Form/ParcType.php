@@ -36,8 +36,9 @@ class ParcType extends AbstractType
             ->add('slug', TextType::class, $this->getConfiguration("Adresse web créee automatiquement", [
                 'required' => false
             ]))
-            ->add('imageFile', FileType::class, [
+            ->add('pictureFiles', FileType::class, [
                 'required' => false,
+                'multiple' => true
             ])
             ->add('introduction', TextareaType::class, $this->getConfiguration("Introduction"))
             ->add('description', TextareaType::class, $this->getConfiguration("Description détaillée"))
