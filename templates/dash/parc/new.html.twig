@@ -21,7 +21,23 @@ block body %} {% form_theme form _self %}
         <hr />
         {{ form_row(form.pictureFiles) }}
       </div>
-     
+      {% for picture in parc.pictures %}
+      <div class="col">
+        <img
+          src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('thumb') }}"
+          width="100"
+          alt=""
+        />
+        <a
+          href="{{ path('dash.picture.delete', { id: picture.id }) }}"
+          class="btn btn-danger"
+          data-delete
+          data-token="{{ csrf_token('delete' ~ picture.id )}}"
+        >Supprimer
+        </a>
+      </div>
+      {% endfor %}
+
     </div>
       <div class="alert alert-light">
         <h2>Détails de l'annonce</h2>

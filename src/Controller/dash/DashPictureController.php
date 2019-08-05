@@ -6,6 +6,7 @@ use App\Entity\Picture;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -19,12 +20,13 @@ class DashPictureController extends AbstractController
     */
     public function delete(Picture $picture, Request $request, ObjectManager $manager)
     {
-        $parcId = $picture->getParc()->getId();
-        $manager->remove($picture);
-        $manager->flush();
-    
-        $this->addFlash("success", "Votre annonce a bien été supprimée.");
+        $data = json_decode($request->getContent(), true);
+        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
+            $manager->remove($picture);
+            $manager->flush();
+            return new JsonResponse(['success' => 1]);
+        }
        
-        return $this->redirectToRoute('dash.parcs.edit', ['id' => $parcId]);
+        return new JsonResponse(['error' => 'Token invalid'], 400);
     }
 }
