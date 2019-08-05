@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ParcType extends AbstractType
@@ -40,11 +41,11 @@ class ParcType extends AbstractType
                 'required' => false,
                 'multiple' => true
             ])
-            ->add('address')
+            ->add('address', TextType::class)
             ->add('postal_code')
-            ->add('city')
-            ->add('lat')
-            ->add('lng')
+            ->add('city', TextType::class)
+            ->add('lat', HiddenType::class)
+            ->add('lng', HiddenType::class)
             ->add('introduction', TextareaType::class, $this->getConfiguration("Introduction"))
             ->add('description', TextareaType::class, $this->getConfiguration("Description détaillée"))
         ;

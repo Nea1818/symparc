@@ -87,15 +87,12 @@ block body %}
         </div>
         <div class="col-md-5">
           <h2 class="my-3">Localisation</h2>
-          <p>158 Avenue de la République 83000 Toulon</p>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2912.224542920359!2d5.928689815480549!3d43.12080897914319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c91b0d84618543%3A0x22c4e252e696f818!2s158+Avenue+de+la+R%C3%A9publique%2C+83000+Toulon!5e0!3m2!1sfr!2sfr!4v1559494802129!5m2!1sfr!2sfr"
-            width="300"
-            height="250"
-            frameborder="0"
-            style="border:0"
-            allowfullscreen
-          ></iframe>
+          <div
+            id="map"
+            style="width: 200px; height: 200px"
+            data-lat="{{ parc.lat }}"
+            data-lng="{{ parc.lng }}"
+          ></div>
         </div>
       </div>
     </div>
