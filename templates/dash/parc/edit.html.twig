@@ -7,7 +7,7 @@
   {{ form_start(form) }}
 
   <div class="row">
-    <div class="col">
+    <div class="col-md-7">
       <div class="alert alert-light">
         <h2>Informations générales</h2>
         <hr />
@@ -15,13 +15,16 @@
         {{ form_row(form.slug) }}
       </div>
     </div>
-    <div class="col">
+    <div class="col-md-5">
       <div class="alert alert-light">
         <h2>Images de l'annonce</h2>
         <hr />
         {{ form_row(form.pictureFiles) }}
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7">
       <div class="alert alert-light">
         <h2>Détails de l'annonce</h2>
         <hr />
@@ -29,20 +32,10 @@
         {{ form_row(form.description) }}
       </div>
     </div>
-  </div>
-
-  <div class="alert alert-light clearfix">
-    <button type="submit" class="btn btn-success float-right">
-      <i class="fas fa-check"></i>
-      Enregistrer les modifications
-    </button>
-  </div>
-
-  {{ form_end(form) }}
-</div>
-<div class="alert alert-light">
-  {% for picture in parc.pictures %}
-        <div class="col">
+    <div class="col-md-5">
+      <div class="alert alert-light">
+        {% for picture in parc.pictures %}
+        <div class="col my-2 mx-2">
           <img
             src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('thumb') }}"
             width="100"
@@ -53,11 +46,19 @@
             class="btn btn-danger"
             data-delete
             data-token="{{ csrf_token('delete' ~ picture.id )}}"
-          >Supprimer
+            >Supprimer
           </a>
         </div>
         {% endfor %}
-
-
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-light clearfix">
+    <button type="submit" class="btn btn-success float-right">
+      <i class="fas fa-check"></i>
+      Enregistrer les modifications
+    </button>
+  </div>
+  {{ form_end(form) }}
 </div>
-{% endblock %} 
+{% endblock %}

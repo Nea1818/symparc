@@ -1,53 +1,104 @@
 {% extends 'base.html.twig' %} {% block title %}{{ parc.name }}{% endblock %} {%
-    block body %}
-    
-    <div class="jumbotron">
-      <div class="row mt-5">
-        <div class="col-md-6">
-          {% if parc.filename %}
-              <img
-                src="{{ vich_uploader_asset(parc, 'imageFile') | imagine_filter('medium') }}"
-                alt="card-img-top"
-                style="width: 100%; height: auto"
-              />
-              {% else %}
-              <img
-                src="{{ '/images/parcs/empty.jpg' | imagine_filter('medium') }}"
-                alt="card-img-top"
-                style="width: 100%; height: auto"
-              />
+block body %}
 
-              {% endif %}
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-7">
+      {% if parc.picture %}
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-interval="false"
+        data-ride="carousel"
+        data-pause="hover"
+      >
+        <ol class="carousel-indicators">
+          {% for picture in parc.pictures %}
+          <li
+            data-target="#carouselExampleIndicators"
+            data-slide-to="{{ loop.index0 }}"
+            {%
+            if
+            loop.first
+            %}
+            class="active"
+            {%
+            endif
+            %}
+          ></li>
+          {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+          {% for picture in parc.pictures %}
+          <div class="carousel-item {% if loop.first %} active {% endif %}">
+            <img
+              src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('medium') }}"
+              class="d-block w-100"
+              alt="First slide"
+              style="width: 500px; height: 400px;"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <p>Légende</p>
+            </div>
+          </div>
+          {% endfor %}
         </div>
-        <div class="col-md-6">
-          <h2>
-            {{ parc.name }}
-          </h2>
-          <p>
-            {{ parc.introduction }}
-          </p>
-            <a class="btn btn-primary btn-lg my-2" href="#" role="button"
-              >J'y vais! &raquo;</a>
-        </div>
+        <a
+          class="carousel-control-prev"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Précédent</span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#carouselExampleIndicators"
+          role="button"
+          data-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Suivant</span>
+        </a>
       </div>
+      {% else %}
+      <img
+        src="{{ '/images/empty.jpg' | imagine_filter('thumb') }}"
+        alt="card-img-top"
+        style="width: 100%; height: auto"
+      />
+      {% endif %}
     </div>
-    
-    <div class="container">
+    <div class="col-md-5">
+      <h2>
+        {{ parc.name }}
+      </h2>
+      <p>
+        {{ parc.introduction }}
+      </p>
+    </div>
+    <div class="container my-4">
+      <hr />
       <div class="row">
         <div class="col-md-7">
-          <h2>Description</h2>
-          <hr>
-        {{parc.description}}
+          <h2 class="my-3">Description</h2>
+          {{ parc.description }}
         </div>
-          <div class="col-md-5">
-              <h2>Localisation</h2>
-              <p>158 Avenue de la République 83000 Toulon</p>
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2912.224542920359!2d5.928689815480549!3d43.12080897914319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c91b0d84618543%3A0x22c4e252e696f818!2s158+Avenue+de+la+R%C3%A9publique%2C+83000+Toulon!5e0!3m2!1sfr!2sfr!4v1559494802129!5m2!1sfr!2sfr" width="300" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-              
-            </div>
-        </div>
+        <div class="col-md-5">
+          <h2 class="my-3">Localisation</h2>
+          <p>158 Avenue de la République 83000 Toulon</p>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2912.224542920359!2d5.928689815480549!3d43.12080897914319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c91b0d84618543%3A0x22c4e252e696f818!2s158+Avenue+de+la+R%C3%A9publique%2C+83000+Toulon!5e0!3m2!1sfr!2sfr!4v1559494802129!5m2!1sfr!2sfr"
+            width="300"
+            height="250"
+            frameborder="0"
+            style="border:0"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </div>
-    {% endblock %}
-    
+  </div>
+</div>
+{% endblock %}
