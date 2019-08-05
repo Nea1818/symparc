@@ -22,11 +22,17 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="/css/app.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/leaflet/1/leaflet.css"
+    />
+    <script src="https://cdn.jsdelivr.net/leaflet/1/leaflet.js"></script>
     {% block stylesheets %}{% endblock %}
   </head>
   <body>
     {% include 'partials/header.html.twig'%} {% block body %} {% endblock %} {%
     include 'partials/footer.html.twig'%}
+
     <script src="/js/app.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

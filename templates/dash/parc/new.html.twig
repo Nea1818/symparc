@@ -17,9 +17,11 @@ block body %} {% form_theme form _self %}
     </div>
     <div class="col-md-5">
       <div class="alert alert-light">
-        <h2>Images de l'annonce</h2>
+        <h2>Localisation</h2>
         <hr />
-        {{ form_row(form.pictureFiles) }}
+        {{ form_row(form.address) }}
+        {{ form_row(form.postal_code) }}
+        {{ form_row(form.city) }}
       </div>
     </div>
   </div>
@@ -33,6 +35,11 @@ block body %} {% form_theme form _self %}
       </div>
     </div>
     <div class="col-md-5">
+      <div class="alert alert-light">
+        <h2>Images de l'annonce</h2>
+        <hr />
+        {{ form_row(form.pictureFiles) }}
+      </div>
       <div class="alert alert-light">
         {% for picture in parc.pictures %}
         <div class="col my-2 mx-2">

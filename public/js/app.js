@@ -1,3 +1,18 @@
+import Places from 'places.js'
+
+let inputAddress = document.querySelector('#parc_address')
+if (inputAddress !== null) {
+  let place = Places({
+    container: inputAddress
+  })
+  place.on('change', e => {
+    document.querySelector('#parc_city').value = e.suggestion.city
+    document.querySelector('#parc_postal_code').value = e.suggestion.postcode
+    document.querySelector('#parc_lat').value = e.suggestion.latlng.lat
+    document.querySelector('#parc_lng').value = e.suggestion.latlng.lng
+  })
+}
+
 // Supression des photos
 
 document.querySelectorAll('[data-delete]').forEach(a => {

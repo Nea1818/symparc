@@ -40,6 +40,11 @@ class ParcType extends AbstractType
                 'required' => false,
                 'multiple' => true
             ])
+            ->add('address')
+            ->add('postal_code')
+            ->add('city')
+            ->add('lat')
+            ->add('lng')
             ->add('introduction', TextareaType::class, $this->getConfiguration("Introduction"))
             ->add('description', TextareaType::class, $this->getConfiguration("Description détaillée"))
         ;
