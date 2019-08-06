@@ -18,6 +18,19 @@ if (inputAddress !== null) {
   })
 }
 
+let searchAddress = document.querySelector('#search_address')
+if (searchAddress !== null) {
+  let place = Places({
+    appId: 'plSOPROSJWXH',
+    apiKey: '6b7cf48727803595838cf8a327d9c73b',
+    container: searchAddress
+  })
+  place.on('change', e => {
+    document.querySelector('#lat').value = e.suggestion.latlng.lat
+    document.querySelector('#lng').value = e.suggestion.latlng.lng
+  })
+}
+
 let $ = require('jquery')
 
 require('../css/app.css')
