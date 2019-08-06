@@ -54,7 +54,14 @@ class ParcType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Parc::class,
+            'data_class' => ParcSearch::class,
+            'method' => 'get',
+            'csrf_protection' => false,
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 }
