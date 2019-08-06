@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Parc;
+use App\Entity\ParcSearch;
+use App\Form\ParcSearchType;
 use App\Repository\ParcRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +32,11 @@ class ParcController extends AbstractController
      */
     public function index(Request $request, ObjectManager $manager, ParcRepository $repository, PaginatorInterface $paginator)
     {
+        $search = new ParcSearch();
+        $form = $this->createForm(ParcSearchType::class, $search);
+        $form->handleRequest($request);
+
+        
         $parcs = $paginator->paginate(
             $this->repository->findLatest(),
             $request->query->getInt('page', 1),
@@ -38,6 +45,7 @@ class ParcController extends AbstractController
         $manager->flush();
         return $this->render('parc/index.html.twig', [
             'parcs' => $parcs,
+            'form' => $form->createView()
         ]);
     }
 
