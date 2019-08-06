@@ -20,10 +20,9 @@ class ParcSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'choices' => [
-                    '1km' => 1,
-                    '5km' => 5,
-                    '10km' => 10,
-                    '15km' => 15
+                    '1 km' => 1,
+                    '5 km' => 5,
+                    '100 km' => 100,
                 ]
             ])
             ->add('lat', HiddenType::class)
@@ -35,6 +34,8 @@ class ParcSearchType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ParcSearch::class,
+            'method' => 'get',
+            'csrf_protection' => false,
         ]);
     }
 
