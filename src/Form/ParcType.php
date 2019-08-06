@@ -42,7 +42,7 @@ class ParcType extends AbstractType
                 'multiple' => true
             ])
             ->add('address', TextType::class)
-            ->add('postal_code')
+            ->add('postal_code', TextType::class)
             ->add('city', TextType::class)
             ->add('lat', HiddenType::class)
             ->add('lng', HiddenType::class)
@@ -54,14 +54,7 @@ class ParcType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ParcSearch::class,
-            'method' => 'get',
-            'csrf_protection' => false,
+            'data_class' => Parc::class
         ]);
-    }
-
-    public function getBlockPrefix()
-    {
-        return '';
     }
 }
