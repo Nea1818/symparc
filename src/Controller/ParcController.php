@@ -38,7 +38,7 @@ class ParcController extends AbstractController
 
         
         $parcs = $paginator->paginate(
-            $this->repository->findLatest(),
+            $this->repository->findAllVisibleQuery($search),
             $request->query->getInt('page', 1),
             4
         );

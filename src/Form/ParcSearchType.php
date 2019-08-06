@@ -20,9 +20,9 @@ class ParcSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'choices' => [
-                    '1 km' => 1,
-                    '5 km' => 5,
-                    '100 km' => 100,
+                    'A 1 km près' => 1,
+                    'A 5 km près' => 5,
+                    'A 10 km près' => 10,
                 ]
             ])
             ->add('lat', HiddenType::class)
