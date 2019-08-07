@@ -21,6 +21,11 @@ class ParcSearch
     private $lng;
 
     /**
+     * @var string|null
+     */
+    private $address;
+
+    /**
      *
      * @return integer|null
      */
@@ -80,6 +85,24 @@ class ParcSearch
     {
         $this->lng = $lng;
 
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param null|string $address
+     * @return ParcSearch
+     */
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
         return $this;
     }
 }

@@ -33,21 +33,45 @@ class ParcType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, $this->getConfiguration("Nom de l'espace vert"))
-            ->add('slug', TextType::class, $this->getConfiguration("Adresse web créee automatiquement", [
-                'required' => false
-            ]))
+            ->add('name', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Nom de la fiche'
+            ]])
             ->add('pictureFiles', FileType::class, [
                 'required' => false,
-                'multiple' => true
-            ])
-            ->add('address', TextType::class)
-            ->add('postal_code', TextType::class)
-            ->add('city', TextType::class)
+                'multiple' => true,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Ajoutez une ou plusieurs images...'
+            ]])
+            ->add('address', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Adresse'
+            ]])
+            ->add('postal_code', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Code Postal'
+            ]])
+            ->add('city', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Ville'
+            ]])
             ->add('lat', HiddenType::class)
             ->add('lng', HiddenType::class)
-            ->add('introduction', TextareaType::class, $this->getConfiguration("Introduction"))
-            ->add('description', TextareaType::class, $this->getConfiguration("Description détaillée"))
+            ->add('introduction', TextareaType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Introduction'
+            ]])
+            ->add('description', TextareaType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Description détaillée'
+            ]])
         ;
     }
 

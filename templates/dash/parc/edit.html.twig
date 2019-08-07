@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %} {% block title %}Edition des annonces{% endblock
-%} {% block body %} {% form_theme form _self %}
+{% extends 'base.html.twig' %} {% block title %}Edition des fiches{% endblock %}
+{% block body %} {% form_theme form _self %}
 
 <div class="container">
-  <h1 class="my-5">Modifier l'annonce: {{ parc.name }}</h1>
+  <h1 class="my-5">Modifier la fiche: {{ parc.name }}</h1>
 
   {{ form_start(form) }}
 
@@ -12,7 +12,8 @@
         <h2>Informations générales</h2>
         <hr />
         {{ form_row(form.name) }}
-        {{ form_row(form.slug) }}
+        {{ form_row(form.introduction) }}
+        {{ form_row(form.description) }}
       </div>
     </div>
     <div class="col-md-5">
@@ -28,15 +29,14 @@
   <div class="row">
     <div class="col-md-7">
       <div class="alert alert-light">
-        <h2>Détails de l'annonce</h2>
+        <h2>Horaires d'ouverture</h2>
         <hr />
-        {{ form_row(form.introduction) }}
-        {{ form_row(form.description) }}
+        <p>Informations à venir...</p>
       </div>
     </div>
     <div class="col-md-5">
       <div class="alert alert-light">
-        <h2>Images de l'annonce</h2>
+        <h2>Images</h2>
         <hr />
         {{ form_row(form.pictureFiles) }}
       </div>
@@ -50,10 +50,10 @@
           />
           <a
             href="{{ path('dash.picture.delete', { id: picture.id }) }}"
-            class="btn btn-danger"
+            class="btn btn-danger mx-2"
             data-delete
             data-token="{{ csrf_token('delete' ~ picture.id )}}"
-            >Supprimer
+            >X
           </a>
         </div>
         {% endfor %}

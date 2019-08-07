@@ -3,19 +3,11 @@ parisiens{% endblock %} {% block body %}
 
 <div class="jumbotron">
   <div class="container">
-    <h2 class="my-4">Trouvez un espace vert près de chez vous...</h2>
+    <h2 class="my-5">Trouvez un espace vert près de chez vous...</h2>
     {{ form_start(form) }}
     <div class="form-row align-items-end">
       <div class="col">
-        <div class="form-group">
-          <input
-            type="text"
-            id="search_address"
-            class="form-control"
-            value=""
-            placeholder="Localisation..."
-          />
-        </div>
+        {{ form_row(form.address, { id: 'search_address' }) }}
       </div>
       <div class="col">
         {{ form_row(form.distance) }}
@@ -32,10 +24,16 @@ parisiens{% endblock %} {% block body %}
 <div class="container">
   <div class="row mt-4">
     <div class="col">
+      {% if parcs|length == 0 %}
+      <h4>
+        Malheureusement il n'y a pas de résultat pour cette recherche. Vous
+        pouvez retenter votre chance avec d'autres critères...
+      </h4>
+      {% else %}
       <div class="row flex">
         {% for parc in parcs %}
         <div class="col-md-6">
-          <div class="card bg-light mb-3">
+          <div class="card bg-light my-3">
             <a href="{{ path('parcs.show', { id: parc.id, slug: parc.slug }) }}"
               >{% if parc.picture %}
               <img
@@ -57,18 +55,17 @@ parisiens{% endblock %} {% block body %}
                   href="{{
                     path('parcs.show', { id: parc.id, slug: parc.slug })
                   }}"
-                  >{{ parc.name }}</a
+                  >{{ parc.name }} - {{ parc.postalCode }}</a
                 >
               </h5>
-              ><br />
-              <small>{{ parc.postalCode }}</small>
+              <br />
               <p class="card-text">
                 {{ parc.introduction }}
               </p>
             </div>
           </div>
         </div>
-        {% endfor %}
+        {% endfor %} {% endif %}
       </div>
     </div>
   </div>
