@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Picture;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Picture|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,32 @@ class PictureRepository extends ServiceEntityRepository
         parent::__construct($registry, Picture::class);
     }
 
-    // /**
-    //  * @return Picture[] Returns an array of Picture objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Parc[] $parcs
+     * @return ArrayCollection
+     */
+    public function findForParcs(array $parcs): ArrayCollection
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        $qb = $this->createQueryBuilder('p');
+        $pictures = $qb
+            ->select('p')
+            ->where(
+                $qb->expr()->in(
+                    'p.id',
+                    $this->createQueryBuilder('p2')
+                        ->select('MIN(p2.id)')
+                        ->where('p2.parc IN (:parcs)')
+                        ->groupBy('p2.parc')
+                        ->getDQL()
+                )
+            )
             ->getQuery()
-            ->getResult()
-        ;
+            ->setParameter('parcs', $parcs)
+            ->getResult();
+        $pictures = array_reduce($pictures, function (array $acc, Picture $picture) {
+            $acc[$picture->getParc()->getId()] = $picture;
+            return $acc;
+        }, []);
+        return new ArrayCollection($pictures);
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Picture
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

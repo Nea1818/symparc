@@ -36,20 +36,13 @@ class ParcController extends AbstractController
         $form = $this->createForm(ParcSearchType::class, $search);
         $form->handleRequest($request);
 
-        
-        $parcs = $paginator->paginate(
-            $this->repository->findAllVisibleQuery($search),
-            $request->query->getInt('page', 1),
-            4
-        );
         $manager->flush();
         return $this->render('parc/index.html.twig', [
-            'parcs' => $parcs,
+            'parcs' => $this->repository->paginateAllVisible($search, $request->query->getInt('page', 1)),
             'form' => $form->createView()
         ]);
     }
-
-    
+ 
     /**
     *
     * Afficher une seule annonce

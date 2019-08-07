@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Parc;
+use App\Entity\Picture;
 use App\Entity\ParcSearch;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -15,16 +18,21 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ParcRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    /**
+    * @var PaginatorInterface
+    */
+    private $paginator;
+
+    public function __construct(RegistryInterface $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Parc::class);
+        $this->paginator = $paginator;
     }
 
-
     /**
-        * @return Query
-        */
-    public function findAllVisibleQuery(ParcSearch $search)
+     * @return PaginationInterface
+     */
+    public function paginateAllVisible(ParcSearch $search, int $page): PaginationInterface
     {
         $query = $this->findVisibleQuery();
 
@@ -36,17 +44,29 @@ class ParcRepository extends ServiceEntityRepository
                 ->setParameter('distance', $search->getDistance());
         }
 
-        return $query->getQuery();
+        $parcs = $this->paginator->paginate(
+            $query->getQuery(),
+            $page,
+            4
+        );
+
+
+        $this->hydratePicture($parcs);
+
+        return $parcs;
     }
 
     /**
-     * @return Parc[]
-     */
-    public function findLatest()
+    * @return Parc[]
+    */
+    public function findLatest(): array
     {
-        $properties = $this->findVisibleQuery()
+        $parcs = $this->findVisibleQuery()
             ->setMaxResults(4)
-            ->getQuery();
+            ->getQuery()
+            ->getResult();
+        $this->hydratePicture($parcs);
+        return $parcs;
     }
 
     private function findVisibleQuery()
@@ -54,32 +74,18 @@ class ParcRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p');
     }
 
-    // /**
-    //  * @return Parc[] Returns an array of Parc objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Parc
+    private function hydratePicture($parcs)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (method_exists($parcs, 'getItems')) {
+            $parcs = $parcs->getItems();
+        }
+        $pictures = $this->getEntityManager()->getRepository(Picture::class)->findForParcs($parcs);
+        foreach ($parcs as $parc) {
+            /** @var $parc Parc */
+            if ($pictures->containsKey($parc->getId())) {
+                $parc->setPicture($pictures->get($parc->getId()));
+            }
+        }
     }
-    */
 }
