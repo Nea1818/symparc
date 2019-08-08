@@ -1,4 +1,6 @@
 {
+  "name": "symparc",
+  "description": "nice project",
   "type": "project",
   "license": "proprietary",
   "require": {
