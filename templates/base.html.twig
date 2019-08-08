@@ -25,9 +25,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/leaflet/1/leaflet.css"
     />
+
     {% block stylesheets %}
     {{
-      encore_entry_link_tags('app')
+      encore_entry_link_tags('css/app')
     }}
     {% endblock %}
   </head>
@@ -49,7 +50,9 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+
     {% block javascripts %}
-    {{ encore_entry_script_tags('app') }} {% endblock %}
+    {{ encore_entry_script_tags('js/app') }}
+    {% endblock %}
   </body>
 </html>
