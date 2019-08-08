@@ -28,6 +28,9 @@
 
     {% block stylesheets %}
     {{
+      parent()
+    }}
+    {{
       encore_entry_link_tags('css/app')
     }}
     {% endblock %}
@@ -52,6 +55,7 @@
     ></script>
 
     {% block javascripts %}
+    {{ parent() }}
     {{ encore_entry_script_tags('js/app') }}
     {% endblock %}
   </body>
