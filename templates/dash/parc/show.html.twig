@@ -71,16 +71,31 @@ block body %}
       <h2>
         {{ parc.name }}
       </h2>
-      <p>
-        {{ parc.introduction }}
-      </p>
+      <hr />
+      <br /><br />
+      <div class="container">
+        <h3>Horaires d'ouverture</h3>
+        <table class="table">
+          <tr>
+            <td>Horaires d'été</td>
+            <td>Infos à venir</td>
+          </tr>
+          <tr>
+            <td>Horaires d'hiver</td>
+            <td>Infos à venir</td>
+          </tr>
+        </table>
+      </div>
     </div>
     <div class="container my-4">
       <hr />
       <div class="row">
         <div class="col-md-7">
           <h2 class="my-3">Description</h2>
-          {{ parc.description }}
+          <p>
+            {{ parc.introduction }}
+          </p>
+          <p>{{ parc.description }}</p>
         </div>
         <div class="col-md-5">
           <h2 class="my-3">Localisation</h2>

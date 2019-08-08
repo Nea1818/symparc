@@ -40,13 +40,13 @@ class Parc
     private $slug;
 
     /**
-     * @Assert\Length(min=5, max=255)
+     * @Assert\Length(min=5)
      * @ORM\Column(type="text")
      */
     private $introduction;
 
     /**
-     * @Assert\Length(min=5, max=255)
+     * @Assert\Length(min=5)
      * @ORM\Column(type="text")
      */
     private $description;
